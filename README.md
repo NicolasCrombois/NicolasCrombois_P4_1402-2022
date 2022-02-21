@@ -1,5 +1,4 @@
 # Projet GameOn
-1. Forkez ce repo ;
-2. Il est conseillé d'utiliser VisualStudio Code et vous pouvez utiliser Docker, mais ce n'est pas obligatoire ;
-3. Il n'y a aucune dépendance ;
-4. Vous ne devez utiliser que du CSS personnalisé et du JavaScript pur, sans jQuery, Bootstrap ou autre librairie.
+
+Ce repository est la réalisation de Nicolas Crombois.
+Ce projet est la production de la partie 4 de la formation de développeur web - React de chez OpenClassrooms
