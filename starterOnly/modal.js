@@ -41,7 +41,7 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 function launchModal() {
   modalbg.style.display = "block";
 }
-// launch modal event
+
 closeModalBtn.addEventListener("click", closeModal);
 // Désactiver l'affichage de la modal
 function closeModal() {
@@ -56,7 +56,7 @@ function closeModalConfirmation(){
   modalConfirm.style.display = "none";
 }
 
-//if all parameters are present, we run a last check 
+//si tous les paramètres sont présents, nous effectuons une dernière vérification 
 if(first || last || email || birthdate || quantity || city){
   launchModal()
   errors = checkEntryName("first", first, errors);
@@ -79,7 +79,7 @@ if(first || last || email || birthdate || quantity || city){
 }
 
 
-//A chaque fois que l'utilisateur appuyera sur une touche du clavier (lorsqu'il sera entrain de remplir des input dont le parent est la classe "modal-btn")
+//A chaque fois que l'utilisateur appuyera sur une touche du clavier (lorsqu'il sera entrain de remplir des input dont le parent a la classe "modal-btn")
 //la fonction verifyEntryForm sera exécuté
 formData.forEach((data) => data.addEventListener('keyup', function() { errors = verifyEntryForm(this, false, errors); displayErrors(errors) }));
 
@@ -105,7 +105,7 @@ function verifyEntryForm(data, confirm, errors){
   return errors
 }
 
-//Fonction permettant de vérifier que la valeur saisie est bien composé d'au moins de caractères et de caractère alphanumérique
+//Fonction permettant de vérifier que la valeur saisie soit bien composé d'au moins 2 caractères et de caractères alphanumériques uniquement
 function checkEntryName(id, value, errors){
     if(id === "last"){var fieldname = "nom"}
     else if(id === "first"){var fieldname = "prénom"}
@@ -122,7 +122,7 @@ function checkEntryName(id, value, errors){
     return errors
 }
 
-//Fonction permettant de vérifier que la valeur saisie est bien le format d'une adresse mail
+//Fonction permettant de vérifier que la valeur saisie soit bien dans le format d'une adresse email
 function checkEntryEmail(id, value, errors, confirm){
   if( value && value.length > 0 ){
     const regexBeforeAt = new RegExp("^[a-zA-Z0-9._-]+$","g");
@@ -182,7 +182,7 @@ function checkEntryQuantity(id, value, errors,){
   return errors
 }
 
-//Vérification qu'une et une seule location a été saisie
+//Vérification d'une et une seule localisation a été saisie
 function checkEntryLocation(errors){
   const locationchecked = document.querySelectorAll('input[name=location]:checked');
   var bodyError = {}
@@ -196,7 +196,7 @@ function checkEntryLocation(errors){
   return errors
 }
 
-//Vérification de la case de condition d'utilisation (celle-ci doit-être obligatoirmeent cochée)
+//Vérification de la case de condition d'utilisation (celle-ci doit-être obligatoirement cochée)
 function checkCondition(errors){
   const conditionIsChecked = document.querySelector('input#checkbox1').checked;
   if(!conditionIsChecked){
@@ -229,6 +229,9 @@ function displayErrors(errors){
       if('condition' in element) { var key = 'condition' ; var errorElement = errorCondition }
       errorElement.appendChild(document.createElement("p").appendChild(document.createTextNode(element[key])));
       errorElement.appendChild(document.createElement("br"));
+      if(key != 'location' && key != 'condition'){
+        document.getElementById(key).classList.add('errorInput');
+      }
     });
   }
 }
@@ -244,11 +247,11 @@ function setValueInput(first, last, email, birthdate, quantity, location){
 }
 
 
-//Lorsque l'utilisation appuyer pour valider le formulaire on vérifie en amount si les conditons ont été accepté
+//Lorsque l'utilisateur appuie pour valider le formulaire on vérifie en amount si les conditons ont été accepté
 function validate(){
   errors = []
   clearError('condition')
-  errors = checkCondition(errors)
+  errors = checkCondition(errors);
   displayErrors(errors)
   if(errors.length > 0){
     return false
